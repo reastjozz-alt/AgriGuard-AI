@@ -4,77 +4,68 @@ import numpy as np
 from PIL import Image
 import datetime
 
-# --- Page Config (IIT Patna Theme) ---
+# --- Page Configuration ---
 st.set_page_config(page_title="AgriGuard AI | IIT Patna", page_icon="🌿", layout="wide")
 
-# --- Custom Styling (Mandi Style) ---
+# --- Custom CSS for Styling ---
 st.markdown("""
     <style>
-    .main { background-color: #f4f7f1; }
-    .stButton>button { width: 100%; background-color: #2e7d32; color: white; border-radius: 8px; font-weight: bold; }
-    .mandi-card { background-color: white; padding: 15px; border-radius: 10px; border-left: 5px solid #2e7d32; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+    .main { background-color: #f4f7f6; }
+    .stButton>button {
+        width: 100%;
+        border-radius: 20px;
+        height: 3em;
+        background-color: #2e7d32;
+        color: white;
+        font-weight: bold;
+        border: none;
+    }
+    .stButton>button:hover { background-color: #1b5e20; color: white; }
+    .sidebar .sidebar-content { background-image: linear-gradient(#e8f5e9,#ffffff); }
     </style>
     """, unsafe_allow_html=True)
 
-# --- Sidebar: User Info & Weather ---
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/en/5/52/Indian_Institute_of_Technology%2C_Patna_Logo.png", width=80)
+# --- Sidebar: Kisan Sewa Kendra ---
+st.sidebar.image("https://upload.wikimedia.org/wikipedia/en/5/52/Indian_Institute_of_Technology%2C_Patna_Logo.png", width=100)
 st.sidebar.title("👨‍🌾 Kisan Sewa Kendra")
-st.sidebar.info(f"Aaj ki Tarikh: {datetime.date.today()}")
-# --- Logo aur Header Section ---
-col1, col2 = st.columns([1, 5]) # Logo ke liye choti column aur title ke liye badi
+st.sidebar.info(f"**Aaj ki Tarikh:** {datetime.date.today()}")
 
-with col1:
-    # Aap niche wale URL ko apne kisi bhi logo URL se badal sakte hain
-    st.image("https://upload.wikimedia.org/wikipedia/en/5/52/Indian_Institute_of_Technology%2C_Patna_Logo.png", width=100)
+st.sidebar.subheader("🌤️ Weather Update")
+st.sidebar.write("Patna, Bihar: *32°C | Sunny*")
 
-with col2:
-    st.title("🌿 AgriGuard AI: Smart Farming")
-    st.markdown("#### Indian Institute of Technology, Patna")
-
-st.divider()
-
-# Dummy Weather/Mandi Data
-st.sidebar.markdown("### 🌤️ Weather Update")
-st.sidebar.write("Patna, Bihar: **32°C | Sunny**")
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("### 💹 Mandi Bhav (Today)")
+st.sidebar.subheader("💹 Mandi Bhav (Today)")
 st.sidebar.write("🍅 Tomato: ₹2,400/Quintal")
 st.sidebar.write("🥔 Potato: ₹1,800/Quintal")
 
-# --- Main UI ---
+# --- Main Portal ---
 st.title("🌿 AgriGuard AI: Smart Farming Portal")
-st.markdown("Developed at **Indian Institute of Technology, Patna**")
+st.markdown("Developed at *Indian Institute of Technology, Patna*")
 
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.markdown("### 🔍 Plant Health Scanner")
+    st.header("🔍 Plant Health Scanner")
     uploaded_file = st.file_uploader("Paudhe ki photo upload karein...", type=["jpg", "jpeg", "png"])
-    
-    if uploaded_file:
+
+    if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', use_container_width=True)
+        st.image(image, caption='Uploaded Photo', use_container_width=True)
         
-        if st.button("Analyze Fasal"):
-            # Dummy Logic for now
-            st.warning("Analysis: **Early Blight Detected ⚠️**")
-            
-            # --- Added Treatment Suggestions (Like Pro Websites) ---
-            st.markdown("### 💊 Upchar (Treatment)")
-            st.success("""
-            * **Dawai:** Mancozeb (2g/Litre) ka chidkaw karein.
-            * **Sallah:** Khrab patto ko turant tod kar jala dein.
-            * **Savadhaani:** Agli baar fasal chakr (Crop Rotation) apnayein.
-            """)
+        if st.button("Bimari ki Jaanch Karein"):
+            with st.spinner('AI Dimag laga raha hai...'):
+                # Dummy Result for now (since we use dummy model)
+                st.balloons()
+                st.success("✅ Analysis Complete: Paudha Swasth Hai!")
+                st.info("AI Confidence: 98.4%")
 
 with col2:
-    st.markdown("### 📰 Agriculture News")
-    st.info("📌 PM-Kisan ki 17th kist jald aane wali hai.")
-    st.info("📌 Bihar mein Organic Farming par 50% subsidy.")
+    st.header("📰 Agriculture News")
+    st.write("📌 PM-Kisan ki 17th kist jald aane wali hai.")
+    st.write("📌 Bihar mein Organic Farming par 50% subsidy.")
     
-    st.markdown("### 📞 Helpline")
-    st.write("Kisan Call Center: **1800-180-1551**")
+    st.divider()
+    st.header("📞 Helpline")
+    st.write("Kisan Call Center: *1800-180-1551*")
 
 st.divider()
 st.caption("© 2026 AgriGuard Project | IIT Patna | Empowering Indian Farmers")
